@@ -1,0 +1,52 @@
+[
+    {
+        "id": 833,
+        "name": "Bishkek",
+        "state": "",
+        "country": "KG",
+        "coord": {
+            "lon": 47.159401,
+            "lat": 34.330502
+        }
+    },
+    {
+        "id": 833,
+        "name": "Osh",
+        "state": "",
+        "country": "IR",
+        "coord": {
+            "lon": 47.159401,
+            "lat": 34.330502
+        }
+    },
+    {
+        "id": 833,
+        "name": "Moscow",
+        "state": "",
+        "country": "IR",
+        "coord": {
+            "lon": 47.159401,
+            "lat": 34.330502
+        }
+    }, 
+    {
+        "id": 833,
+        "name": "Dubai",
+        "state": "",
+        "country": "IR",
+        "coord": {
+            "lon": 47.159401,
+            "lat": 34.330502
+        }
+    },
+    {
+        "id": 833,
+        "name": "Batken",
+        "state": "",
+        "country": "IR",
+        "coord": {
+            "lon": 47.159401,
+            "lat": 34.330502
+        }
+    }
+]
