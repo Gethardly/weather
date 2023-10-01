@@ -6,7 +6,8 @@
     "typesRoots": ["./src"],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "allowJs": true,
   },
   "references": [
     {
