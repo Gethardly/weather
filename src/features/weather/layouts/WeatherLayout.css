@@ -1,37 +1,37 @@
 body {
-    font-family: 'montserrat', sans-serif;
+  font-family: 'montserrat', sans-serif;
 }
 
 #main-box {
-    background-color: cornflowerblue;
-    transition: 0.4s;
+  background-color: cornflowerblue;
+  transition: 0.4s;
 }
 
 #main-box.warm {
-    background-color: #d55f98;
-    transition: 0.4s;
+  background-color: #d55f98;
+  transition: 0.4s;
 }
 
 #main-weather {
-    min-height: 100vh;
-    padding: 25px;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
+  min-height: 100vh;
+  padding: 25px;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
 }
 
 #main-weather {
-    min-height: 100vh;
-    padding: 25px;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
+  min-height: 100vh;
+  padding: 25px;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
 }
 
 @media screen and (max-width: 480px) {
-    #main-box {
-        background: url('../../../assets/cold-bg.jpg') bottom / cover no-repeat;
-        transition: 0.4s;
-    }
+  #main-box {
+    background: url('../../../assets/cold-bg.jpg') bottom / cover no-repeat;
+    transition: 0.4s;
+  }
 
-    #main-box.warm {
-        background: url('../../../assets/warm-bg.jpg') bottom / cover no-repeat;
-        transition: 0.4s;
-    }
+  #main-box.warm {
+    background: url('../../../assets/warm-bg.jpg') bottom / cover no-repeat;
+    transition: 0.4s;
+  }
 }

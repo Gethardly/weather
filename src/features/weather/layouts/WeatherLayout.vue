@@ -1,20 +1,20 @@
 <template>
-  <q-layout
-      id="main-box"
-      :class="typeof weather.main !== 'undefined' && weather.main.temp > 16 ? 'warm' : ''"
-  >
+  <q-layout id="main-box"
+            :class="getWeatherInfo && getUnits === 'Metric' && (getWeatherInfo.main.temp > 16 ? 'warm' : '') || (getWeatherInfo.main.temp > 60 ? 'warm' : '')">
     <q-page-container>
-        <q-page id="main-weather">
-            <AutoCompleteSelect
-                v-on:cityChanged="cityChanged"
-                :loading="selectLoading"
-                :units="units"
-            />
-            <q-card-actions>
-              <q-toggle v-model="toggle" :label="units" :disable="!city" style="color: white"/>
-            </q-card-actions>
-          <WeatherInfo :weather="weather" :unit-mark="unitMark"/>
-        </q-page>
+      <q-page id="main-weather">
+        <div>
+          <button @click="changeLanguage('en')">en</button>
+          <button @click="changeLanguage('ru')">ru</button>
+        </div>
+        <AutoCompleteSelect
+            :selectedCity="getSelectedCity"
+            @cityChanged="cityChanged"
+            :units="getUnits"
+            @toggleUnits="toggleUnits"
+        />
+        <WeatherInfo :loading="weatherLoading" :weather="getWeatherInfo" :unitMark="getUnitMark"/>
+      </q-page>
     </q-page-container>
   </q-layout>
 </template>
@@ -22,56 +22,39 @@
 <script lang="ts">
 import './WeatherLayout.css'
 import { defineComponent } from 'vue'
-import type { Weather } from '@/types'
-import axiosApi from '@/axiosApi'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import WeatherInfo from '@/features/weather/components/WeatherInfo/WeatherInfo.vue'
 import AutoCompleteSelect from '@/features/weather/components/AutoCompleteSelect/AutoCompleteSelect.vue'
 
-export enum Units {
-  Imperial = 'Imperial',
-  Metric = 'Metric'
-}
-
 export default defineComponent({
   name: 'WeatherLayout',
-  components: {AutoCompleteSelect, WeatherInfo},
-  data() {
-    return {
-      unitMark: '',
-      units: Units.Metric,
-      city: 'Bishkek',
-      selectLoading: false,
-      weather: {} as Weather,
-      toggle: false,
-    }
+  computed: {
+    ...mapGetters([
+      'getWeatherInfo',
+      'weatherLoading',
+      'getSelectedCity',
+      'getUnits',
+      'getUnitMark'
+    ])
   },
   methods: {
-    async getWeather() {
-      this.selectLoading = true
-      try {
-        const response = await axiosApi.get(
-            `weather?q=${this.city}&units=${this.units}&appid=${import.meta.env.VITE_API_KEY}`
-        )
-        this.weather = response.data
-        this.unitMark = this.units === Units.Metric ? '°c' : '°f'
-      } catch (e) {
-        console.error(e)
-      } finally {
-        this.selectLoading = false
-      }
-    },
-    cityChanged(value: string) {
-      this.city = value
+    ...mapActions(['getWeather']),
+    ...mapMutations(['setUnitsAndMark', 'setCity']),
+    cityChanged(city: string) {
+      this.setCity(city)
       this.getWeather()
+    },
+    toggleUnits(units: string) {
+      this.setUnitsAndMark(units)
+      this.getWeather()
+    },
+    changeLanguage(locale: string) {
+      this.$i18n.locale = locale
     }
   },
+  components: {AutoCompleteSelect, WeatherInfo},
   watch: {
-    toggle() {
-      if (this.units === Units.Metric) {
-        this.units = Units.Imperial
-      } else {
-        this.units = Units.Metric
-      }
+    getUnits() {
       this.getWeather()
     }
   },
