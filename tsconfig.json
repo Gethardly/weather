@@ -2,6 +2,8 @@
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["src/**/*", "src/**/*.vue"],
   "compilerOptions": {
+    "isolatedModules": false,
+    "preserveValueImports": true,
     "types": ["vite/client"],
     "typesRoots": ["./src"],
     "paths": {
