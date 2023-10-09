@@ -26,11 +26,15 @@ body {
 
 @media screen and (max-width: 480px) {
   #main-box {
+    width: 100%;
+    height: 100vh;
     background: url('../../../assets/cold-bg.jpg') bottom / cover no-repeat;
     transition: 0.4s;
   }
 
   #main-box.warm {
+    width: 100%;
+    height: 100vh;
     background: url('../../../assets/warm-bg.jpg') bottom / cover no-repeat;
     transition: 0.4s;
   }
