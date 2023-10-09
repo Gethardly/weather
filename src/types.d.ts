@@ -5,10 +5,12 @@ export interface Weather {
     temp_min: number
     temp_max: number
     humidity: number
+    pressure: number
   }
   weather: [{ main: string }]
   wind: {
     speed: number
+    deg: number
   }
   sys: {
     country: string
@@ -16,21 +18,6 @@ export interface Weather {
   name: string
 }
 
-export interface Countries {
-  data: [
-    {
-      cities: string[]
-    }
-  ]
-}
-
-export interface City {
-  id: number
+export interface CityName {
   name: string
-  state: string
-  country: string
-  coord: {
-    lon: number
-    lat: number
-  }
 }
