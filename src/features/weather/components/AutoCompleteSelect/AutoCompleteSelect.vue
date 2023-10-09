@@ -14,6 +14,7 @@
           :loading="loading"
           :options="options"
           @filter="filterFn"
+          @input="onCitySelected"
           style="width: 250px"
       >
         <template v-slot:no-option>
@@ -74,8 +75,11 @@ export default defineComponent({
           }
         })
         this.options = response.data.geonames.map((item: CityName) => item.name)
-        this.loading = false; // Снимаем флаг загрузки после получения данных
+        this.loading = false;
       })
+    },
+    onCitySelected() {
+      this.loading = false;
     }
   }
 })
