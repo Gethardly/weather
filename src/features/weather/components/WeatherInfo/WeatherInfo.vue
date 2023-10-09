@@ -1,58 +1,87 @@
 <template>
-  <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
-    <div class="location-box">
-      <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
-      <div class="date">{{ date }}</div>
-    </div>
+  <div>
+    <div class="weather-wrap">
+      <q-spinner
+          class="weatherInfoSpinner"
+          color="primary"
+          size="10em"
+          :thickness="10"
+          v-if="loading"
+      />
+      <div v-else-if="weather !== null && typeof weather.main !== 'undefined'">
+        <div class="location-box">
+          <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
+          <div class="date">{{ date }}</div>
+        </div>
 
-    <div class="weather-box">
-      <div class="temp">
-        {{ Math.round(weather.main.temp) }} {{ this.unitMark }}
-        <p style="font-size: 24px; margin: 0">
-          Feels like {{ Math.round(weather.main.feels_like) }}
-        </p>
+        <div class="weather-box">
+          <div class="temp">
+            {{ Math.round(weather.main.temp) }} {{ unitMark }}
+            <p class="feelsLike">
+              {{ $t('feelsLike') }} {{ Math.round(weather.main.feels_like) }}
+            </p>
+          </div>
+          <div class="weather">{{ $t('minimumTemp') }}: {{ Math.round(weather.main.temp_min) }}</div>
+          <div class="weather">{{ $t('maximumTemp') }}: {{ Math.round(weather.main.temp_max) }}</div>
+          <div class="weather">{{ $t('humidity') }}: {{ weather.main.humidity }}%</div>
+          <div class="weather">{{ $t('windSpeed') }}: {{ weather.wind.speed }}</div>
+          <div class="weather">
+            {{ $t('windDirection') }}: {{ getWindDirection(weather.wind.deg) }}
+          </div>
+          <div class="weather">
+            {{ $t('pressure') }}: {{ weather.main.pressure }} <span>{{ $t('pressureType') }}</span>
+          </div>
+        </div>
       </div>
-      <div class="weather">{{ weather.weather[0].main }}</div>
-      <div class="weather">Minimum temp {{ Math.round(weather.main.temp_min) }}</div>
-      <div class="weather">Maximum temp {{ Math.round(weather.main.temp_max) }}</div>
-      <div class="weather">Humidity {{ weather.main.humidity }}%</div>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import './WeatherInfo.css'
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
+import type { Weather } from '@/types'
+import dayjs from 'dayjs'
 
 export default defineComponent({
   name: 'WeatherInfo',
   props: {
-    weather: {},
-    unitMark: String
+    weather: {
+      default: null,
+      type: Object as () => Weather
+    },
+    unitMark: String,
+    loading: Boolean
+  },
+  methods: {
+    getWindDirection(deg: number) {
+      const directionsRu = [
+        'Север',
+        'Северо-Восток',
+        'Восток',
+        'Юго-Восток',
+        'Юг',
+        'Юго-Запад',
+        'Запад',
+        'Северо-Запад'
+      ]
+      const directionsEn = [
+        'North',
+        'Northeast',
+        'East',
+        'Southeast',
+        'South',
+        'Southwest',
+        'West',
+        'Northwest',
+      ];
+      const index = Math.round((deg % 360) / 45)
+      return this.$i18n.locale === 'ru' ? directionsRu[index] : directionsEn[index]
+    }
   },
   computed: {
     date() {
-      let d = new Date()
-      let months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ]
-      let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-      let day = days[d.getDay()]
-      let date = d.getDate()
-      let month = months[d.getMonth()]
-      let year = d.getFullYear()
-      return `${day} ${date} ${month} ${year}`
+      return dayjs().locale(this.$i18n.locale).format('dddd D MMMM YYYY')
     }
   }
 })
