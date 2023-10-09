@@ -1,0 +1,14 @@
+{
+  "localization": "en",
+  "metric": "Metric",
+  "imperial": "Imperial",
+  "searchCity": "Search a city",
+  "minimumTemp": "Minimum temp",
+  "maximumTemp": "Maximum temp",
+  "humidity": "Humidity",
+  "feelsLike": "Feels like",
+  "windSpeed": "Wind Speed",
+  "windDirection": "Wind direction",
+  "pressure": "Pressure",
+  "pressureType": "mmHg"
+}

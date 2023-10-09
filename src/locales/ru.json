@@ -1,0 +1,14 @@
+{
+  "localization": "ru",
+  "metric": "Метрическая",
+  "imperial": "Имперская",
+  "searchCity": "Искать город",
+  "minimumTemp": "Минимальная температура",
+  "maximumTemp": "Максимальная температура",
+  "humidity": "Влажность",
+  "feelsLike": "Ощущается как",
+  "windSpeed": "Скорость ветра",
+  "windDirection": "Направление ветра",
+  "pressure": "Давление",
+  "pressureType": "мм рт.ст."
+}
