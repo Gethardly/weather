@@ -1,5 +1,4 @@
 # Logs
-src/assets/city.list.json
 logs
 *.log
 npm-debug.log*
